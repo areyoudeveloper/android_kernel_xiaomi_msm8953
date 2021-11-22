@@ -436,6 +436,10 @@ void cfb_imageblit(struct fb_info *p, const struct fb_image *image)
 				slow_imageblit(image, p, dst1, fgcolor,
 					       bgcolor,
 					       start_index, pitch_index);
+                     } else
+            
+			slow_imageblit(image, p, dst1, fgcolor, bgcolor,
+					start_index, pitch_index);
 	} else
 		color_imageblit(image, p, dst1, start_index, pitch_index);
 }
