@@ -68,7 +68,7 @@
 		qcom,id = <0>;
 		qcom,chipid = <0x05000600>;
 
-		qcom,initial-pwrlevel = <3>;
+		qcom,initial-pwrlevel = <5>;
 
 		qcom,idle-timeout = <65>; //msecs
 		qcom,deep-nap-timeout = <100>; //msecs
