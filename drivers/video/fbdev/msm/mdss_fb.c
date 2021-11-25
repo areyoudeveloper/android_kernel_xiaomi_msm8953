@@ -3103,12 +3103,11 @@ static int __mdss_fb_wait_for_fence_sub(struct msm_sync_pt_data *sync_pt_data,
 		if (ret == -ETIMEDOUT) {
 			wait_jf = timeout - jiffies;
 			wait_ms = jiffies_to_msecs(wait_jf);
-			if (wait_jf < 0)
+			if (wait_jf < 0){
 				break;
-
 				wait_ms = min_t(long, WAIT_FENCE_FINAL_TIMEOUT,
 						wait_ms);
-
+                        }
 			pr_warn("%s: sync_fence_wait timed out! ",
 					mdss_get_sync_fence_name(fences[i]));
 			pr_cont("Waiting %ld.%ld more seconds\n",
@@ -3744,8 +3743,8 @@ static void mdss_fb_var_to_panelinfo(struct fb_var_screeninfo *var,
 }
 
 void mdss_panelinfo_to_fb_var(struct msm_fb_data_type *mfd)
-{       if (!mfd)
-		return -EINVAL;
+{       
+		
 
 	struct mdss_panel_info *pinfo = mfd->panel_info;
 	struct fb_info *fbi = mfd->fbi;
