@@ -82,7 +82,7 @@
  * Time period for fps calulation in micro seconds.
  * Default value is set to 1 sec.
  */
-#define MDP_TIME_PERIOD_CALC_FPS_US	1000000
+#define MDP_TIME_PERIOD_CALC_FPS_US	1500000
 
 static struct fb_info *fbi_list[MAX_FBI_LIST];
 static int fbi_list_index;
@@ -1319,7 +1319,7 @@ static int mdss_fb_probe(struct platform_device *pdev)
 	mfd->bl_scale = 1024;
 	mfd->bl_min_lvl = 30;
 	mfd->ad_bl_level = 0;
-	mfd->fb_imgType = MDP_RGB_888;
+	mfd->fb_imgType = MDP_RGBA_8888;
 	mfd->calib_mode_bl = 0;
 	mfd->unset_bl_level = U32_MAX;
 	mfd->bl_extn_level = -1;
@@ -1486,16 +1486,16 @@ static int mdss_fb_remove(struct platform_device *pdev)
 
 	pm_runtime_disable(mfd->fbi->dev);
 
-	if (mfd->key != MFD_KEY)
-		return -EINVAL;
+	if (mfd->key != MFD_KEY){
+		return -EINVAL;}
 
 	mdss_fb_unregister_input_handler(mfd);
 	mdss_panel_debugfs_cleanup(mfd->panel_info);
 
-	if (mdss_fb_suspend_sub(mfd))
+	if (mdss_fb_suspend_sub(mfd)){
 		pr_err("msm_fb_remove: can't stop the device %d\n",
 			    mfd->index);
-
+         }
 	/* remove /dev/fb* */
 	unregister_framebuffer(mfd->fbi);
 
@@ -1522,8 +1522,8 @@ static int mdss_fb_send_panel_event(struct msm_fb_data_type *mfd,
 	pr_debug("sending event=%d for fb%d\n", event, mfd->index);
 
 	do {
-		if (pdata->event_handler)
-			ret = pdata->event_handler(pdata, event, arg);
+		if (pdata->event_handler){
+			ret = pdata->event_handler(pdata, event, arg);}
 
 		pdata = pdata->next;
 	} while (!ret && pdata);
@@ -2790,11 +2790,11 @@ static int mdss_fb_register(struct msm_fb_data_type *mfd)
 	mdss_panelinfo_to_fb_var(mfd);
 
 	fix->type = panel_info->is_3d_panel;
-	if (mfd->mdp.fb_stride)
+	if (mfd->mdp.fb_stride){
 		fix->line_length = mfd->mdp.fb_stride(mfd->index, var->xres,
-							bpp);
-	else
-		fix->line_length = var->xres * bpp;
+	}						bpp);
+	else{
+		fix->line_length = var->xres * bpp;}
 
 	var->xres_virtual = var->xres;
 	var->yres_virtual = panel_info->yres * mfd->fb_page;
