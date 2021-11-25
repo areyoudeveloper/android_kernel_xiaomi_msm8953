@@ -2791,8 +2791,8 @@ static int mdss_fb_register(struct msm_fb_data_type *mfd)
 
 	fix->type = panel_info->is_3d_panel;
 	if (mfd->mdp.fb_stride){
-		fix->line_length = mfd->mdp.fb_stride(mfd->index, var->xres,
-	}						bpp);
+		fix->line_length = mfd->mdp.fb_stride(mfd->index, var->xres, bpp);
+        }
 	else{
 		fix->line_length = var->xres * bpp;}
 
