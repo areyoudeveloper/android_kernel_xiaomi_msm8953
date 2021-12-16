@@ -142,7 +142,7 @@ struct rpmh_votes_t {
 	struct gmu_bw_votes cnoc_votes;
 };
 
-#define MAX_GMU_CLKS 6
+#define MAX_GMU_CLKS 7
 #define DEFAULT_GMU_FREQ_IDX 1
 
 /*
